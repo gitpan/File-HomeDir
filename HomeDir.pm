@@ -1,9 +1,9 @@
  
 require 5;
-package File::HomeDir;   #Time-stamp: "2000-12-09 12:04:37 MST"
+package File::HomeDir;   #Time-stamp: "2000-12-09 15:42:33 MST"
 use strict;
 use vars qw($HOME @EXPORT $VERSION @ISA %Cache);
-$VERSION = '0.04';
+$VERSION = '0.05';
 use Carp ();
 require Exporter;
 @ISA = ('Exporter');
@@ -21,11 +21,29 @@ sub my_home () {
   return $HOME if $HOME;
     
   # Or try other ways...
-  if($MacPerl::Version or $MacPerl::Version) {
+  if($MacPerl::Version and $MacPerl::Version
     # avoid the "used only once" warning.
-    $HOME = eval
-     'use Mac::Files; FindFolder(kOnSystemDisk, kDesktopFolderType)';
-    die $@ if $@;
+    and defined do {
+      local $SIG{"__DIE__"} = "";
+      eval
+       'use Mac::Files; $HOME = FindFolder(kOnSystemDisk, kDesktopFolderType)'
+    }
+  ) {
+    return $HOME;
+  }
+
+  if(defined do {
+    # see if there's a W32 registry on this machine, and if so, look in it
+    local $SIG{"__DIE__"} = "";
+    eval '
+      use Win32::TieRegistry;
+      my $folders = Win32::TieRegistry->new(
+         "HKEY_CURRENT_USER/Software/Microsoft/Windows/CurrentVersion/Explorer/Shell Folders",
+         { Delimiter => "/" }
+      );
+      $HOME = $folders->GetValue("Desktop");
+    ' }
+  ) {
     return $HOME;
   }
 
@@ -39,14 +57,16 @@ sub my_home () {
     return $HOME;
   }
 
+  # MSWindows sets WINDIR, MS WinNT sets USERPROFILE.
+
   if($ENV{'USERPROFILE'}) {   # helpfully suggested by crysflame
-    if(-e "$ENV{'USERPROFILE'}/Desktop") {
-      $HOME = "$ENV{'USERPROFILE'}/Desktop";
+    if(-e "$ENV{'USERPROFILE'}\\Desktop") {
+      $HOME = "$ENV{'USERPROFILE'}\\Desktop";
       return $HOME;
     }
   } elsif($ENV{'WINDIR'}) {
-    if(-e "$ENV{'WINDIR'}/Desktop") {
-      $HOME = "$ENV{'WINDIR'}/Desktop";
+    if(-e "$ENV{'WINDIR'}\\Desktop") {
+      $HOME = "$ENV{'WINDIR'}\\Desktop";
       return $HOME;
     }
   }
