@@ -1,6 +1,10 @@
 Revision history for Perl extension File::HomeDir
-                                        Time-stamp: "2000-12-08 20:59:45 MST"
+                                        Time-stamp: "2000-12-09 12:06:07 MST"
 
+2000-12-09  Sean M. Burke  sburke@cpan.org
+
+	* Release 0.04 -- just fixing incidental typos in the POD.
+	
 2000-12-08  Sean M. Burke  sburke@cpan.org
 	
 	* Release 0.03 -- first public release.

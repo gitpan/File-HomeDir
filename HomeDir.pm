@@ -1,9 +1,9 @@
  
 require 5;
-package File::HomeDir;   #Time-stamp: "2000-12-08 21:23:01 MST"
+package File::HomeDir;   #Time-stamp: "2000-12-09 12:04:37 MST"
 use strict;
 use vars qw($HOME @EXPORT $VERSION @ISA %Cache);
-$VERSION = '0.03';
+$VERSION = '0.04';
 use Carp ();
 require Exporter;
 @ISA = ('Exporter');
@@ -166,7 +166,7 @@ a zero-length string, or a fatal error will result.
 =item C<"...$~{username}...">
 
 This calls C<home($user)> or C<home('username')> -- except that if you
-ask for C<$~{same_user}> and there is no such user, a fatal error
+ask for C<$~{some_user}> and there is no such user, a fatal error
 results!
 
 Note that this is especially useful in doublequotish strings, like:
@@ -180,7 +180,7 @@ there being no such user.
 
 Note, however, that if the hash key is "" or undef (whether thru being
 a literal "", or a scalar whose value is empty-string or undef), then
-this returns zero-argument C<home()>, i.e., your home directory.
+this returns zero-argument C<home()>, i.e., your home directory:
 
 =item C<$~{""}>
 
@@ -194,7 +194,7 @@ These all return C<home()>, i.e., your home directory.
 
 If running under an OS that doesn't implement C<getpwid>, this library
 tries to provide a sane return value for the no-argument C<home()>.
-Under MacOS, for example, it tries returning the pathspect to the
+Under MacOS, for example, it tries returning the pathspec to the
 desktop folder.  See source for full details.
 
 Under OSs that don't implement C<getpwnam> (as C<home($user)> calls),
