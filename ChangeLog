@@ -1,7 +1,11 @@
 Revision history for Perl extension File::HomeDir
-                                        Time-stamp: "2000-12-09 15:46:16 MST"
+                                        Time-stamp: "2004-12-29 19:45:22 AST"
 
 
+2004-12-29  Sean M. Burke  sburke@cpan.org
+
+	* Release 0.06 -- just rebundling.  No code changes.
+	
 2000-12-09  Sean M. Burke  sburke@cpan.org
 
         * Release 0.05 -- adding MSWin code to consult the registry,

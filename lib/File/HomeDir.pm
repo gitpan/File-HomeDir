@@ -1,9 +1,9 @@
  
 require 5;
-package File::HomeDir;   #Time-stamp: "2000-12-09 15:42:33 MST"
+package File::HomeDir;   #Time-stamp: "2004-12-29 19:46:02 AST"
 use strict;
 use vars qw($HOME @EXPORT $VERSION @ISA %Cache);
-$VERSION = '0.05';
+$VERSION = '0.06';
 use Carp ();
 require Exporter;
 @ISA = ('Exporter');
