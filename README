@@ -1,81 +1,177 @@
 NAME
-    File::HomeDir -- get home directory for self or other users
+    File::HomeDir - Get the home directory for yourself or other users
 
 SYNOPSIS
       use File::HomeDir;
+  
+      # Modern Interface (Current User)
+      $home = File::HomeDir->my_home;
+      $docs = File::HomeDir->my_documents;
+      $data = File::HomeDir->my_data;
+  
+      # Modern Interface (Other Users)
+      $home = File::HomeDir->users_home('foo');
+      $docs = File::HomeDir->users_home('foo');
+      $data = File::HomeDir->users_home('foo');
+  
+      # Legacy Interfaces
       print "My dir is ", home(), " and root's is ", home('root'), "\n";
       print "My dir is $~{''} and root's is $~{root}\n";
-       # These both print the same thing, something like:
-       #  "My dir is /home/user/mojo and root's is /"
+      # These both print the same thing, something like:
+      #  "My dir is /home/user/mojo and root's is /"
 
 DESCRIPTION
-    This module provides a function, "home", and also ties the
-    in-all-packages variable "%~".
+    File::HomeDir is a module for dealing with issues relating to the
+    location of directories for various purposes that are "owned" by a user,
+    and to solve these problems consistently across a wide variety of
+    platforms.
 
-    home()
-        Returns a filespec to this user's home directory.
+    This module provides two main interfaces.
 
-    home($user)
-        Returns a filespec to the home directory of the given user, or undef
-        if no such user.
+    A modern File::Spec-style interface with a consistent OO API and
+    different implementation modules to support various platforms, and a
+    legacy interface from version 0.07 that exported a home() function by
+    default and tied the %~ variable.
 
-        Note that the argument to this must be a defined value, and mustn't
-        be a zero-length string, or a fatal error will result.
+  Platform Neutrality
+    In the Unix world, many different types of data can be mixed together in
+    your home directory. On some other platforms, seperate directories are
+    allocated for different types of data.
 
-    $~{$user}
-    $~{username}
-    "...$~{$user}..."
-    "...$~{username}..."
-        This calls "home($user)" or "home('username')" -- except that if you
-        ask for $~{some_user} and there is no such user, a fatal error
-        results!
+    When writing applications, you should try to use the most specific
+    method you can. User documents should be saved in "my_documents", data
+    to support an application should go in "my_data".
 
-        Note that this is especially useful in doublequotish strings, like:
+    On platforms that do not make this distinction, all these methods will
+    harmlessly degrade to the main home directory, but on platforms that
+    care "File::HomeDir" will Do The Right Thing(tm).
 
-             print "Jojo's .newsrc is ", -s "$~{jojo}/.newsrc", "b long!\n";
-              # (helpfully dies if there is no user 'jojo')
+METHODS
+    Two types of methods are provided. The "my_method" series of methods for
+    finding resources for the current user, and the "users_method" (read as
+    "user's method") series for finding resources for arbitrary users.
 
-        If you want to avoid the fatal errors, first test the value of
-        "home('jojo')", which will return undef (instead of dying) in case
-        of there being no such user.
+    This split is necesary, as on many platforms it is MUCH easier to find
+    information about the current user compared to other users.
 
-        Note, however, that if the hash key is "" or undef (whether thru
-        being a literal "", or a scalar whose value is empty-string or
-        undef), then this returns zero-argument "home()", i.e., your home
-        directory:
+    All methods via a "-d" test that the directory actually exists before
+    returning.
 
-    $~{""}
-    $~{undef}
-    "...$~{''}..."
-        These all return "home()", i.e., your home directory.
+  my_home
+    The "my_home" takes no arguments and returns the main home/profile
+    directory for the current user.
 
-    If running under an OS that doesn't implement "getpwid", this library
-    tries to provide a sane return value for the no-argument "home()". Under
-    MacOS, for example, it tries returning the pathspec to the desktop
-    folder. See source for full details.
+    Returns the directory path as a string, or dies if it cannot be found.
 
-    Under OSs that don't implement "getpwnam" (as "home($user)" calls), you
-    will always get a failed lookup, just as if you'd tried to look up the
-    home dir for a nonexistent user on an OS that *does* support "getpwnam".
+  my_documents
+    The "my_documents" takes no arguments and returns the directory for the
+    current user where the user's documents are stored.
 
-BUGS AND CAVEATS
-    * One-argument "home($username)" is memoized. Read the source if you
-    need it unmemoized.
+    Returns the directory path as a string, or dies if it cannot be found.
 
-    * According to the fileio.c in one version of Emacs, MSWindows (NT?)
-    does have the concept of users having home directories, more or less.
-    But I don't know if MSWin ports of Perl allow accessing that with
-    "getpwnam". I hear that it (currently) doesn't.
+  my_data
+    The "my_data" takes no arguments and returns the directory where local
+    applications should stored their internal data for the current user.
 
-    * This documentation gets garbled by some AIX manual formatters.
-    Consider "perldoc -t File::HomeDir" instead.
+    Generally an application would create a subdirectory such as ".foo",
+    beneath this directory, and store its data there. By creating your
+    directory this way, you get an accurate result on the maximum number of
+    platforms.
+
+    For example, on Unix you get "~/.foo" and on Win32 you get "~/Local
+    Settings/Application Data/.foo"
+
+    Returns the directory path as a string, or dies if it cannot be found.
+
+  users_home
+      $home = File::HomeDir->users_home('foo');
+
+    The "users_home" method takes a single param and is used to locate the
+    parent home/profile directory for an identified user on the system.
+
+    While most of the time this identifier would be some form of user name,
+    it is permitted to vary per-platform to support user ids or UUIDs as
+    applicable for that platform.
+
+    Returns the directory path as a string, or dies if it cannot be found.
+
+  users_documents
+      $docs = File::HomeDir->users_documents('foo');
+
+    Returns the directory path as a string, or dies if it cannot be found.
+
+  users_data
+    Returns the directory path as a string, or dies if it cannot be found.
+
+FUNCTIONS
+  home
+      use File::HomeDir;
+      $home = home();
+      $home = home('foo');
+      $home = File::HomeDir::home();
+      $home = File::HomeDir::home('foo');
+
+    The "home" function is exported by default and is provided for
+    compatibility with legacy applications. In new applications, you should
+    use the newer method-based interface above.
+
+    Returns the directory path to a named user's home/profile directory.
+
+    If provided no param, returns the directory path to the current user's
+    home/profile directory.
+
+TIED INTERFACE
+  %~
+      $home = $~{""};
+      $home = $~{undef};
+      $home = $~{$user};
+      $home = $~{username};
+      print "... $~{''} ...";
+      print "... $~{$user} ...";
+      print "... $~{username} ...";
+
+    This calls "home($user)" or "home('username')" -- except that if you ask
+    for $~{some_user} and there is no such user, it will die.
+
+    Note that this is especially useful in double-quotish strings, like:
+
+         print "Jojo's .newsrc is ", -s "$~{jojo}/.newsrc", "b long!\n";
+          # (helpfully dies if there is no user 'jojo')
+
+    If you want to avoid the fatal errors, first test the value of
+    "home('jojo')", which will return undef (instead of dying) in case of
+    there being no such user.
+
+    Note, however, that if the hash key is "" or undef (whether thru being a
+    literal "", or a scalar whose value is empty-string or undef), then this
+    returns zero-argument "home()", i.e., your home directory:
+
+SUPPORT
+    Bugs should be always be reported via the CPAN bug tracker at
+
+    <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=File-HomeDir>
+
+    For other issues, or commercial enhancement or support, contact the
+    author.
+
+AUTHORS
+    Adam Kennedy <cpan@ali.as>
+
+    Original by:
+
+    Sean M. Burke "sburke@cpan.org"
+
+SEE ALSO
+    File::ShareDir, File::HomeDir::Win32 (legacy)
 
 COPYRIGHT
-    Copyright (c) 2000 Sean M. Burke. All rights reserved.
+    Copyright 2005 Adam Kennedy. All rights reserved.
 
-    This library is free software; you can redistribute it and/or modify it
+    Some parts copyright 2000 Sean M. Burke. All rights reserved.
+
+    This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.
 
-AUTHOR
-    Sean M. Burke "sburke@cpan.org"
+    The full text of the license can be found in the LICENSE file included
+    with this module.
 

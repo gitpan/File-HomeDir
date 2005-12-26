@@ -1,5 +1,5 @@
 Changes
-inc/ExtUtils/AutoInstall.pm
+inc/Module/AutoInstall.pm
 inc/Module/Install.pm
 inc/Module/Install/AutoInstall.pm
 inc/Module/Install/Base.pm
@@ -11,6 +11,9 @@ inc/Module/Install/Metadata.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 lib/File/HomeDir.pm
+lib/File/HomeDir/MacOS9.pm
+lib/File/HomeDir/Unix.pm
+lib/File/HomeDir/Windows.pm
 LICENSE
 Makefile.PL
 MANIFEST			This list of files
