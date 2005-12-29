@@ -1,15 +1,16 @@
-name: File-HomeDir
-version: 0.50
-abstract: Get the home directory for yourself or other users
-author: Adam Kennedy <cpan@ali.as>
-license: perl
-distribution_type: module
+abstract: "Get the home directory for yourself or other users\r"
+author: "Adam Kennedy <cpan@ali.as>\r"
 build_requires:
   Test::More: 0.47
-requires:
-  perl: 5.005
-  File::Spec: 0.80
+distribution_type: module
+generated_by: Module::Install version 0.50
+license: perl
+name: File-HomeDir
 no_index:
   directory:
     - inc
-generated_by: Module::Install version 0.45
+    - t
+requires:
+  File::Spec: 0.80
+  perl: 5.005
+version: 0.51
