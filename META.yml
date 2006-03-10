@@ -3,9 +3,9 @@ no_index:
   directory: 
     - inc
     - t
-generated_by: Module::Install version 0.58
+generated_by: Module::Install version 0.59
 distribution_type: module
-version: 0.55
+version: 0.56
 name: File-HomeDir
 author: Adam Kennedy <cpan@ali.as>
 license: perl
