@@ -1,12 +1,13 @@
-#line 1 "inc/Module/Install/Fetch.pm - /usr/local/share/perl/5.8.4/Module/Install/Fetch.pm"
+#line 1
 package Module::Install::Fetch;
 
 use strict;
 use Module::Install::Base;
 
-use vars qw{$VERSION @ISA};
+use vars qw{$VERSION $ISCORE @ISA};
 BEGIN {
-	$VERSION = '0.59';
+	$VERSION = '0.62';
+	$ISCORE  = 1;
 	@ISA     = qw{Module::Install::Base};
 }
 

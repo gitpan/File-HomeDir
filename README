@@ -161,6 +161,9 @@ TO DO
     - Add more granularity to Unix, and add support to VMS and other
     esoteric platforms, so we can consider going core.
 
+    Anyone wishing to add support for the above are welcome to get an
+    account to my SVN and add it directly.
+
 SUPPORT
     Bugs should be always be reported via the CPAN bug tracker at
 
@@ -172,7 +175,7 @@ SUPPORT
 AUTHORS
     Adam Kennedy <cpan@ali.as>
 
-    Original by:
+    Original implementation by:
 
     Sean M. Burke "sburke@cpan.org"
 
@@ -180,7 +183,7 @@ SEE ALSO
     File::ShareDir, File::HomeDir::Win32 (legacy)
 
 COPYRIGHT
-    Copyright 2005 Adam Kennedy. All rights reserved.
+    Copyright 2005-2006 Adam Kennedy. All rights reserved.
 
     Some parts copyright 2000 Sean M. Burke. All rights reserved.
 
