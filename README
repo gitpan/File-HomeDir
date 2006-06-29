@@ -28,10 +28,10 @@ DESCRIPTION
 
     This module provides two main interfaces.
 
-    A modern File::Spec-style interface with a consistent OO API and
-    different implementation modules to support various platforms, and a
-    legacy interface from version 0.07 that exported a home() function by
-    default and tied the %~ variable.
+    The first is a modern File::Spec-style interface with a consistent OO
+    API and different implementation modules to support various platforms,
+    and the second is a legacy interface from version 0.07 that exported a
+    home() function by default and tied the %~ variable.
 
   Platform Neutrality
     In the Unix world, many different types of data can be mixed together in
@@ -44,7 +44,7 @@ DESCRIPTION
 
     On platforms that do not make this distinction, all these methods will
     harmlessly degrade to the main home directory, but on platforms that
-    care "File::HomeDir" will Do The Right Thing(tm).
+    care File::HomeDir will Do The Right Thing(tm).
 
 METHODS
     Two types of methods are provided. The "my_method" series of methods for
@@ -55,19 +55,25 @@ METHODS
     information about the current user compared to other users.
 
     All methods via a "-d" test that the directory actually exists before
-    returning.
+    returning. However, because in some cases, certain platforms may not
+    support the concept of home directories at all, a method may return
+    "undef" (both in scalar and list context) to indicate that there is no
+    matching directory on the system. But anything returned can be trusted
+    to actually exist.
 
   my_home
     The "my_home" takes no arguments and returns the main home/profile
     directory for the current user.
 
-    Returns the directory path as a string, or dies if it cannot be found.
+    Returns the directory path as a string, "undef" if the current user does
+    not have a home direcotry, or dies on error.
 
   my_documents
     The "my_documents" takes no arguments and returns the directory for the
     current user where the user's documents are stored.
 
-    Returns the directory path as a string, or dies if it cannot be found.
+    Returns the directory path as a string, "undef" if the current user does
+    not have a documents directory, or dies on error.
 
   my_data
     The "my_data" takes no arguments and returns the directory where local
@@ -81,7 +87,8 @@ METHODS
     For example, on Unix you get "~/.foo" and on Win32 you get "~/Local
     Settings/Application Data/.foo"
 
-    Returns the directory path as a string, or dies if it cannot be found.
+    Returns the directory path as a string, "undef" if the current user does
+    not have a data directory, or dies on error.
 
   users_home
       $home = File::HomeDir->users_home('foo');
@@ -93,15 +100,18 @@ METHODS
     it is permitted to vary per-platform to support user ids or UUIDs as
     applicable for that platform.
 
-    Returns the directory path as a string, or dies if it cannot be found.
+    Returns the directory path as a string, "undef" if that user does not
+    have a home directory, or dies on error.
 
   users_documents
       $docs = File::HomeDir->users_documents('foo');
 
-    Returns the directory path as a string, or dies if it cannot be found.
+    Returns the directory path as a string, "undef" if that user does not
+    have a documents directory, or dies on error.
 
   users_data
-    Returns the directory path as a string, or dies if it cannot be found.
+    Returns the directory path as a string, "undef" if that user does not
+    have a data directory, or dies on error.
 
 FUNCTIONS
   home
@@ -183,9 +193,11 @@ SEE ALSO
     File::ShareDir, File::HomeDir::Win32 (legacy)
 
 COPYRIGHT
-    Copyright 2005-2006 Adam Kennedy. All rights reserved.
+    Copyright 2005, 2006 Adam Kennedy. All rights reserved.
 
     Some parts copyright 2000 Sean M. Burke. All rights reserved.
+
+    Some parts copyright 2006 Chris Nandor. All rights reserved.
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.
