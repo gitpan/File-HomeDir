@@ -1,5 +1,12 @@
 Revision history for Perl extension File::HomeDir
 
+0.60_02 Fri 14 Jul 2006
+	# Cleaning up
+        - Altered testing to allow cases where there are no "toys" directories
+        - More cleanups for Darwin in the root case
+        - Updating dependencies to something more modern
+          (mostly to ensure certain fixes to certain problems exist)
+
 0.60_01 ...
 	# Introduces back-compatibility issues
 	- No longer treat lack of a home directory as an error

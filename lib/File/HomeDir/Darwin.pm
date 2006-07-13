@@ -7,10 +7,11 @@ use 5.005;
 use strict;
 use base 'File::HomeDir::Unix';
 use Carp ();
+use Cwd  ();
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '0.60_01';
+	$VERSION = '0.60_02';
 }
 
 # Load early if in a forking environment and we have
@@ -26,6 +27,7 @@ eval "use prefork 'Mac::Files'";
 
 sub my_home {
 	my ($class) = @_;
+	require Mac::Files;
 	$class->_find_folder(
 		Mac::Files::kCurrentUserFolderType(),
 		);
@@ -33,6 +35,7 @@ sub my_home {
 
 sub my_desktop {
 	my ($class) = @_;
+	require Mac::Files;
 	$class->_find_folder(
 		Mac::Files::kDesktopFolderType(),
 		);
@@ -40,6 +43,7 @@ sub my_desktop {
 
 sub my_documents {
 	my ($class) = @_;
+	require Mac::Files;
 	$class->_find_folder(
 		Mac::Files::kDocumentsFolderType(),
 		);
@@ -47,6 +51,7 @@ sub my_documents {
 
 sub my_data {
 	my ($class) = @_;
+	require Mac::Files;
 	$class->_find_folder(
 		Mac::Files::kApplicationSupportFolderType(),
 		);
@@ -54,28 +59,40 @@ sub my_data {
 
 
 sub _find_folder {
-	my ($class, $constant) = @_;
-	return Mac::Files::FindFolder(
+	my ($class, $name) = @_;
+	require Mac::Files;
+	my $folder = Mac::Files::FindFolder(
 		Mac::Files::kUserDomain(),
-		$constant,
+		$name,
 		);
+	return $folder unless defined $folder;
+	return Cwd::abs_path($folder);
 }
+
+
+
 
 
 #####################################################################
 # Arbitrary User Methods
 
-# sub users_home, inherit
+sub users_home {
+	my $class = shift;
+	my $home  = $class->SUPER::users_home(@_);
+	return Cwd::abs_path($home);
+}
 
 # in theory this can be done, but for now, let's cheat, since the
 # rest is Hard
 sub users_desktop {
 	my ($class, $name) = @_;
+	return undef if $name eq 'root';
 	$class->_to_user( $class->my_desktop, $name );
 }
 
 sub users_documents {
 	my ($class, $name) = @_;
+	return undef if $name eq 'root';
 	$class->_to_user( $class->my_documents, $name );
 }
 

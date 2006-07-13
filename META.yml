@@ -1,18 +1,19 @@
-
-no_index: 
-  directory: 
+abstract: Get the home directory for yourself or other users
+author: 'Adam Kennedy <cpan@ali.as>'
+build_requires:
+  English: 0
+  Test::More: 0.47
+distribution_type: module
+generated_by: Module::Install version 0.63
+license: perl
+name: File-HomeDir
+no_index:
+  directory:
     - inc
     - t
-generated_by: Module::Install version 0.63
-distribution_type: module
-version: 0.60_01
-name: File-HomeDir
-author: Adam Kennedy <cpan@ali.as>
-license: perl
-build_requires: 
-  Test::More: 0.47
-  English: 0
-requires: 
+requires:
+  Carp: 0
+  Cwd: 3.12
+  File::Spec: 3.12
   perl: 5.005
-  File::Spec: 0.80
-abstract: Get the home directory for yourself or other users
+version: 0.60_02
