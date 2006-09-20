@@ -1,19 +1,20 @@
-abstract: Get the home directory for yourself or other users
-author: 'Adam Kennedy <cpan@ali.as>'
-build_requires:
-  English: 0
-  Test::More: 0.47
-distribution_type: module
-generated_by: Module::Install version 0.63
-license: perl
-name: File-HomeDir
-no_index:
-  directory:
+
+no_index: 
+  directory: 
     - inc
     - t
-requires:
-  Carp: 0
-  Cwd: 3.12
-  File::Spec: 3.12
+generated_by: Module::Install version 0.63
+distribution_type: module
+version: 0.60_03
+name: File-HomeDir
+author: Adam Kennedy <adamk@cpan.org>
+license: perl
+build_requires: 
+  Test::More: 0.47
+  English: 0
+requires: 
   perl: 5.005
-version: 0.60_02
+  File::Spec: 3.12
+  Cwd: 3.12
+  Carp: 0
+abstract: Find your home and other directories, on any platform
