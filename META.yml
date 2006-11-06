@@ -1,20 +1,19 @@
-
+abstract: Find your home and other directories, on any platform
+author: Adam Kennedy <adamk@cpan.org>
+build_requires: 
+  English: 0
+  Test::More: 0.47
+distribution_type: module
+generated_by: Module::Install version 0.64
+license: perl
+name: File-HomeDir
 no_index: 
   directory: 
     - inc
     - t
-generated_by: Module::Install version 0.63
-distribution_type: module
-version: 0.60_03
-name: File-HomeDir
-author: Adam Kennedy <adamk@cpan.org>
-license: perl
-build_requires: 
-  Test::More: 0.47
-  English: 0
 requires: 
-  perl: 5.005
-  File::Spec: 3.12
-  Cwd: 3.12
   Carp: 0
-abstract: Find your home and other directories, on any platform
+  Cwd: 3.12
+  File::Spec: 3.12
+  perl: 5.005
+version: 0.60_04
