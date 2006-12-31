@@ -54,7 +54,7 @@ DESCRIPTION
     After this date, the home() function will remain, but we will consider
     deprecating the (namespace-polluting) "%~" tied hash, to be removed by
     2015 (maintaining the general Perl convention of a 10 year support
-    period for legacy APIs in common use).
+    period for legacy APIs potentially or actually in common use).
 
   Platform Neutrality
     In the Unix world, many different types of data can be mixed together in
@@ -95,12 +95,10 @@ METHODS
     and list context) to indicate that there is no matching directory on the
     system.
 
-    Please note that in the current version, all implementations support
-    my_home, however this is the only method that is universally supported,
-    and all other methods may return undef. The reliability of "my_home" may
-    be reduced in future if "File::HomeDir" heads towards the core, so you
-    should not trust that "my_home" will always return a value in your own
-    code.
+    For example, most untrusted 'nobody'-type users do not have a home
+    directory. So any modules that are used in a CGI application that at
+    some level of recursion use your code, will result in calls to
+    File::HomeDir returning undef, even for a basic home() call.
 
   my_home
     The "my_home" method takes no arguments and returns the main
