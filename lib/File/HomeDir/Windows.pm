@@ -10,7 +10,7 @@ use File::Spec ();
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '0.62';
+	$VERSION = '0.63';
 }
 
 # If prefork is available, set Win32::TieRegistry
@@ -27,13 +27,20 @@ eval "use prefork 'Win32::TieRegistry'";
 sub my_home {
 	my $class = shift;
 
+	# A lot of unix people and unix-derived tools rely on
+	# the ability to overload HOME. We will support it too
+	# so that they can replace raw HOME calls with File::HomeDir.
+	if ( exists $ENV{HOME} and $ENV{HOME} ) {
+		return $ENV{HOME};
+	}
+
 	# Do we have a user profile?
-	if ( $ENV{USERPROFILE} ) {
+	if ( exists $ENV{USERPROFILE} and $ENV{USERPROFILE} ) {
 		return $ENV{USERPROFILE};
 	}
 
 	# Some Windows use something like $ENV{HOME}
-	if ( $ENV{HOMEDRIVE} and $ENV{HOMEPATH} ) {
+	if ( exists $ENV{HOMEDRIVE} and exists $ENV{HOMEPATH} and $ENV{HOMEDRIVE} and $ENV{HOMEPATH} ) {
 		return File::Spec->catpath(
 			$ENV{HOMEDRIVE}, $ENV{HOMEPATH}, '',
 			);

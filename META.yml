@@ -15,4 +15,4 @@ requires:
   Cwd: 3.12
   File::Spec: 3.12
   perl: 5.005
-version: 0.62
+version: 0.63

@@ -8,7 +8,7 @@ use Carp ();
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '0.62';
+	$VERSION = '0.63';
 }
 
 
@@ -31,11 +31,15 @@ sub my_home {
 
 sub _my_home {
 	my $class = shift;
-	return $ENV{HOME} if defined $ENV{HOME};
+	if ( exists $ENV{HOME} and defined $ENV{HOME} ) {
+		return $ENV{HOME};
+	}
 
 	# This is from the original code, but I'm guessing
 	# it means "login directory" and exists on some Unixes.
-	return $ENV{LOGDIR} if $ENV{LOGDIR};
+	if ( exists $ENV{LOGDIR} and $ENV{LOGDIR} ) {
+		return $ENV{LOGDIR};
+	}
 
 	### More-desperate methods
 
