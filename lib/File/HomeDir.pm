@@ -10,7 +10,7 @@ use File::Spec ();
 # Globals
 use vars qw{$VERSION @ISA @EXPORT @EXPORT_OK $IMPLEMENTED_BY};
 BEGIN {
-	$VERSION = '0.64';
+	$VERSION = '0.65';
 
 	# Inherit manually
 	require Exporter;
@@ -40,14 +40,20 @@ BEGIN {
 
 # Don't do platform detection at compile-time
 if ( $^O eq 'MSWin32' ) {
+	# All versions of Windows
 	$IMPLEMENTED_BY = 'File::HomeDir::Windows';
 	require File::HomeDir::Windows;
+
 } elsif ( $^O eq 'darwin' ) {
+	# Modern Max OS X
 	$IMPLEMENTED_BY = 'File::HomeDir::Darwin';
 	require File::HomeDir::Darwin;
+
 } elsif ( $^O eq 'MacOS' ) {
+	# Legacy Mac OS
 	$IMPLEMENTED_BY = 'File::HomeDir::MacOS9';
 	require File::HomeDir::MacOS9;
+
 } else {
 	# Default to Unix semantics
 	$IMPLEMENTED_BY = 'File::HomeDir::Unix';
@@ -553,7 +559,7 @@ you are B<strongly> encouraged to do so as the author currently maintains
 over 100 modules and it can take some time to deal with non-Critical bug
 reports or patches.
 
-This will guarentee that your issue will be addressed in the next
+This will guarantee that your issue will be addressed in the next
 release of the module.
 
 If you cannot provide a direct test or fix, or don't have time to do so,
