@@ -6,7 +6,7 @@ use Module::Install::Base;
 
 use vars qw{$VERSION $ISCORE @ISA};
 BEGIN {
-	$VERSION = '0.71';
+	$VERSION = '0.72';
 	$ISCORE  = 1;
 	@ISA     = qw{Module::Install::Base};
 }
@@ -271,7 +271,7 @@ sub name_from {
 	my $self = shift;
 	if (
 		Module::Install::_read($_[0]) =~ m/
-		^ \s
+		^ \s*
 		package \s*
 		([\w:]+)
 		\s* ;
@@ -372,11 +372,11 @@ sub install_script {
 	my $self = shift;
 	my $args = $self->makemaker_args;
 	my $exe  = $args->{EXE_FILES} ||= [];
-	while ( @_ ) {
+        foreach ( @_ ) {
 		if ( -f $_ ) {
 			push @$exe, $_;
-		} elsif ( -d 'scripts' and -f "scripts/$_" ) {
-			push @$exe, "scripts/$_";
+		} elsif ( -d 'script' and -f "script/$_" ) {
+			push @$exe, "script/$_";
 		} else {
 			die "Cannot find script '$_'";
 		}
