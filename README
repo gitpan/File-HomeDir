@@ -187,14 +187,6 @@ METHODS
     Returns the directory path as a string, "undef" if the current user does
     not have a data directory, or dies on error.
 
-  my_dot_config
-    The "my_dot_config" method takes no arguments and returns the directory
-    where Unix-style applications should store their internal configuration
-    data for the current user. This is the same as "my_data" on most
-    platforms, but whereas "my_data" is ~/Library/Application Support on Mac
-    OS X, "my_dot_config" will instead return the same value as "my_home",
-    namely ~/.
-
   users_home
       $home = File::HomeDir->users_home('foo');
 
