@@ -21,4 +21,4 @@ requires:
   Cwd: 3.12
   File::Spec: 3.12
   perl: 5.005
-version: 0.71_03
+version: 0.80
