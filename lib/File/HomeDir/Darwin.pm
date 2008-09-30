@@ -3,7 +3,7 @@ package File::HomeDir::Darwin;
 # Basic implementation for the Dawin family of operating systems.
 # This includes (most prominently) Mac OS X.
 
-use 5.005;
+use 5.00503;
 use strict;
 use File::HomeDir::Unix ();
 use Carp ();
@@ -11,7 +11,7 @@ use Cwd ();
 
 use vars qw{$VERSION @ISA};
 BEGIN {
-	$VERSION = '0.80';
+	$VERSION = '0.81';
 	@ISA     = 'File::HomeDir::Unix';
 }
 

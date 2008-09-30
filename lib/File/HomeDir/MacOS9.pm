@@ -4,14 +4,14 @@ package File::HomeDir::MacOS9;
 # Provided mainly to provide legacy compatibility. May be removed at
 # a later date.
 
-use 5.005;
+use 5.00503;
 use strict;
 use File::HomeDir::Driver ();
 use Carp ();
 
 use vars qw{$VERSION @ISA};
 BEGIN {
-	$VERSION = '0.80';
+	$VERSION = '0.81';
 	@ISA     = 'File::HomeDir::Driver';
 }
 
@@ -40,10 +40,13 @@ sub my_home {
 	### DESPERATION SETS IN
 
 	# We could use the desktop
-	eval {
-		my $home = $class->my_desktop;
-		return $home if $home and -d $home;
-	};
+	SCOPE: {
+		local $@;
+		eval {
+			my $home = $class->my_desktop;
+			return $home if $home and -d $home;
+		};
+	}
 
 	# Desperation on any platform
 	SCOPE: {

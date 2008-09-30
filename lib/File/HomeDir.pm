@@ -2,7 +2,7 @@ package File::HomeDir;
 
 # See POD at end for documentation
 
-use 5.005;
+use 5.00503;
 use strict;
 use Carp       ();
 use File::Spec ();
@@ -10,7 +10,7 @@ use File::Spec ();
 # Globals
 use vars qw{$VERSION @ISA @EXPORT @EXPORT_OK $IMPLEMENTED_BY};
 BEGIN {
-	$VERSION = '0.80';
+	$VERSION = '0.81';
 
 	# Inherit manually
 	require Exporter;

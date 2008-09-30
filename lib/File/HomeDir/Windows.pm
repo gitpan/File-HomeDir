@@ -3,7 +3,7 @@ package File::HomeDir::Windows;
 # Generalised implementation for the entire Windows family of operating
 # systems.
 
-use 5.005;
+use 5.00503;
 use strict;
 use File::HomeDir::Driver ();
 use Carp ();
@@ -11,7 +11,7 @@ use File::Spec ();
 
 use vars qw{$VERSION @ISA};
 BEGIN {
-	$VERSION = '0.80';
+	$VERSION = '0.81';
 	@ISA     = 'File::HomeDir::Driver';
 }
 
