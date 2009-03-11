@@ -10,7 +10,7 @@ use File::Spec ();
 # Globals
 use vars qw{$VERSION @ISA @EXPORT @EXPORT_OK $IMPLEMENTED_BY};
 BEGIN {
-	$VERSION = '0.83_01';
+	$VERSION = '0.84';
 
 	# Inherit manually
 	require Exporter;
@@ -40,7 +40,7 @@ BEGIN {
 
 # Inlined Params::Util functions
 sub _CLASS ($) {
-	(defined $_[0] and ! ref $_[0] and $_[0] =~ m/^[^\W\d]\w*(?:::\w+)*$/s) ? $_[0] : undef;
+	(defined $_[0] and ! ref $_[0] and $_[0] =~ m/^[^\W\d]\w*(?:::\w+)*\z/s) ? $_[0] : undef;
 }
 sub _DRIVER ($$) {
 	(defined _CLASS($_[0]) and eval "require $_[0];" and ! $@ and $_[0]->isa($_[1]) and $_[0] ne $_[1]) ? $_[0] : undef;
@@ -542,8 +542,6 @@ use is found in the wild, these plans may be pushed back.
 =item * Become generally clearer on situations in which a user might not
 have a particular resource.
 
-=item * Merge remaining edge case code in L<File::HomeDir::Win32>
-
 =item * Add more granularity to Unix, and add support to VMS and other
 esoteric platforms, so we can consider going core.
 
@@ -602,7 +600,7 @@ L<File::ShareDir>, L<File::HomeDir::Win32> (legacy)
 
 =head1 COPYRIGHT
 
-Copyright 2005 - 2008 Adam Kennedy.
+Copyright 2005 - 2009 Adam Kennedy.
 
 Some parts copyright 2000 Sean M. Burke.
 

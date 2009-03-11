@@ -266,7 +266,6 @@ TIED INTERFACE
 TO DO
     * Become generally clearer on situations in which a user might not have
     a particular resource.
-    * Merge remaining edge case code in File::HomeDir::Win32
     * Add more granularity to Unix, and add support to VMS and other
     esoteric platforms, so we can consider going core.
     * Add consistent support for users_* methods
@@ -318,7 +317,7 @@ SEE ALSO
     File::ShareDir, File::HomeDir::Win32 (legacy)
 
 COPYRIGHT
-    Copyright 2005 - 2008 Adam Kennedy.
+    Copyright 2005 - 2009 Adam Kennedy.
 
     Some parts copyright 2000 Sean M. Burke.
 
