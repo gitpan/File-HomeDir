@@ -3,8 +3,8 @@ NAME
 
 SYNOPSIS
       use File::HomeDir;
-  
-      # Modern Interface (Current User)
+      
+  # Modern Interface (Current User)
       $home    = File::HomeDir->my_home;
       $desktop = File::HomeDir->my_desktop;
       $docs    = File::HomeDir->my_documents;
@@ -12,8 +12,8 @@ SYNOPSIS
       $pics    = File::HomeDir->my_pictures;
       $videos  = File::HomeDir->my_videos;
       $data    = File::HomeDir->my_data;
-  
-      # Modern Interface (Other Users)
+      
+  # Modern Interface (Other Users)
       $home    = File::HomeDir->users_home('foo');
       $desktop = File::HomeDir->users_desktop('foo');
       $docs    = File::HomeDir->users_documents('foo');
@@ -21,8 +21,8 @@ SYNOPSIS
       $pics    = File::HomeDir->users_pictures('foo');
       $video   = File::HomeDir->users_videos('foo');
       $data    = File::HomeDir->users_data('foo');
-  
-      # Legacy Interfaces
+      
+  # Legacy Interfaces
       print "My dir is ", home(), " and root's is ", home('root'), "\n";
       print "My dir is $~{''} and root's is $~{root}\n";
       # These both print the same thing, something like:
@@ -264,11 +264,13 @@ TIED INTERFACE
     use is found in the wild, these plans may be pushed back.
 
 TO DO
-    * Become generally clearer on situations in which a user might not have
-    a particular resource.
-    * Add more granularity to Unix, and add support to VMS and other
-    esoteric platforms, so we can consider going core.
-    * Add consistent support for users_* methods
+    *   Become generally clearer on situations in which a user might not
+        have a particular resource.
+
+    *   Add more granularity to Unix, and add support to VMS and other
+        esoteric platforms, so we can consider going core.
+
+    *   Add consistent support for users_* methods
 
 SUPPORT
     This module is stored in an Open Repository at the following address.
