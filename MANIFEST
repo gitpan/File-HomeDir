@@ -9,6 +9,8 @@ inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 lib/File/HomeDir.pm
 lib/File/HomeDir/Darwin.pm
+lib/File/HomeDir/Darwin/Carbon.pm
+lib/File/HomeDir/Darwin/Cocoa.pm
 lib/File/HomeDir/Driver.pm
 lib/File/HomeDir/MacOS9.pm
 lib/File/HomeDir/Unix.pm
@@ -21,6 +23,8 @@ README
 t/01_compile.t
 t/02_main.t
 t/11_darwin.t
+t/12_darwin_carbon.t
+t/13_darwin_cocoa.t
 t/97_meta.t
 t/98_pod.t
 t/99_pmv.t

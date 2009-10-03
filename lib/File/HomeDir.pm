@@ -11,7 +11,7 @@ use File::Spec ();
 # Globals
 use vars qw{$VERSION @ISA @EXPORT @EXPORT_OK $IMPLEMENTED_BY};
 BEGIN {
-	$VERSION = '0.86';
+	$VERSION = '0.87_01';
 
 	# Inherit manually
 	require Exporter;
@@ -54,9 +54,24 @@ if ( $IMPLEMENTED_BY ) {
 } elsif ( $^O eq 'MSWin32' ) {
 	# All versions of Windows
 	$IMPLEMENTED_BY = 'File::HomeDir::Windows';
-} elsif ( $^O eq 'darwin' && $Config::Config{ptrsize} != 8 ) {
-	# Modern Max OS X, but fallback to unix on 64 bit
-	$IMPLEMENTED_BY = 'File::HomeDir::Darwin';
+} elsif ( $^O eq 'darwin') {
+	TRY: {
+		if ( $Config::Config{ptrsize} == 8 ) {
+			# 64bit: try Mac::SystemDirectory by chansen
+			if ( eval { require Mac::SystemDirectory; 1 } ) {
+				$IMPLEMENTED_BY = 'File::HomeDir::Darwin::Cocoa';
+				last TRY;
+			}
+
+		} elsif (eval { require Mac::Files; 1 }) {
+			# 32bit and has Mac::Files: Carbon
+			$IMPLEMENTED_BY = 'File::HomeDir::Darwin::Carbon';
+			last TRY;
+		}
+
+		# fallback: pure perl
+		$IMPLEMENTED_BY = 'File::HomeDir::Darwin';
+	}
 } elsif ( $^O eq 'MacOS' ) {
 	# Legacy Mac OS
 	$IMPLEMENTED_BY = 'File::HomeDir::MacOS9';
