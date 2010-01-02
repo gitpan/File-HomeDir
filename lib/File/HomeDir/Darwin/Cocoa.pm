@@ -8,7 +8,7 @@ use File::HomeDir::Darwin ();
 
 use vars qw{$VERSION @ISA};
 BEGIN {
-	$VERSION = '0.88';
+	$VERSION = '0.89';
 	@ISA     = 'File::HomeDir::Darwin';
 
 	# Load early if in a forking environment and we have
@@ -111,8 +111,8 @@ sub my_videos {
 }
 
 sub _find_folder {
-	my $class  = shift;
-	my $name   = shift;
+	my $class = shift;
+	my $name  = shift;
 
 	require Mac::SystemDirectory;
 	my $folder = Mac::SystemDirectory::FindDirectory($name);
@@ -146,13 +146,13 @@ used via L<File::HomeDir>.
 Theoretically, this should return the same paths as both of the other
 Darwin drivers.
 
-Because this module requires Mac::SystemDirectory, if the module
-is not installed, File::HomeDir will fall back to L<File::HomeDir::Darwin>.
+Because this module requires L<Mac::SystemDirectory>, if the module
+is not installed, L<File::HomeDir> will fall back to L<File::HomeDir::Darwin>.
 
 =head1 SYNOPSIS
 
   use File::HomeDir;
-
+  
   # Find directories for the current user
   $home    = File::HomeDir->my_home;      # /Users/mylogin
   $desktop = File::HomeDir->my_desktop;   # /Users/mylogin/Desktop
