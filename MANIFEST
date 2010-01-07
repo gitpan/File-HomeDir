@@ -12,6 +12,7 @@ lib/File/HomeDir/Darwin.pm
 lib/File/HomeDir/Darwin/Carbon.pm
 lib/File/HomeDir/Darwin/Cocoa.pm
 lib/File/HomeDir/Driver.pm
+lib/File/HomeDir/FreeDesktop.pm
 lib/File/HomeDir/MacOS9.pm
 lib/File/HomeDir/Unix.pm
 lib/File/HomeDir/Windows.pm

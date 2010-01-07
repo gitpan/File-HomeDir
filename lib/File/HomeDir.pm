@@ -11,7 +11,7 @@ use File::Spec ();
 # Globals
 use vars qw{$VERSION @ISA @EXPORT @EXPORT_OK $IMPLEMENTED_BY};
 BEGIN {
-	$VERSION = '0.89';
+	$VERSION = '0.90_01';
 
 	# Inherit manually
 	require Exporter;
@@ -75,6 +75,9 @@ if ( $IMPLEMENTED_BY ) {
 } elsif ( $^O eq 'MacOS' ) {
 	# Legacy Mac OS
 	$IMPLEMENTED_BY = 'File::HomeDir::MacOS9';
+} elsif ( -d '/etc/xdg' ) {
+	# freedesktop unixes
+	$IMPLEMENTED_BY = 'File::HomeDir::FreeDesktop';
 } else {
 	# Default to Unix semantics
 	$IMPLEMENTED_BY = 'File::HomeDir::Unix';
