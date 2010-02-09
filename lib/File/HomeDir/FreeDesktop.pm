@@ -8,10 +8,11 @@ use strict;
 use Carp                ();
 use File::Spec          ();
 use File::HomeDir::Unix ();
+use File::Which         ();
 
 use vars qw{$VERSION @ISA};
 BEGIN {
-	$VERSION = '0.90_02';
+	$VERSION = '0.90_03';
 	@ISA     = 'File::HomeDir::Unix';
 }
 
@@ -22,13 +23,16 @@ BEGIN {
 # running under; the standard substitute user mechanisms are needed to
 # overcome this.
 
-sub _my_thingy {
-    my ($class, $wanted) = @_;
+{
+    my $xdgprog = File::Which::which('xdg-user-dir');
+    sub _my_thingy {
+        my ($class, $wanted) = @_;
 
-    # no quoting because input is hard-coded and only comes from this module
-    my $thingy = qx(xdg-user-dir $wanted);
-    chomp $thingy;
-    return $thingy;
+        # no quoting because input is hard-coded and only comes from this module
+        my $thingy = qx($xdgprog $wanted);
+        chomp $thingy;
+        return $thingy;
+    }
 }
 
 

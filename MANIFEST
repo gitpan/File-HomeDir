@@ -26,6 +26,6 @@ t/02_main.t
 t/11_darwin.t
 t/12_darwin_carbon.t
 t/13_darwin_cocoa.t
-t/97_meta.t
-t/98_pod.t
-t/99_pmv.t
+xt/meta.t
+xt/pmv.t
+xt/pod.t
