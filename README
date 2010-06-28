@@ -1,5 +1,5 @@
 NAME
-    File::HomeDir - Find your home and other directories, on any platform
+    File::HomeDir - Find your home and other directories on any platform
 
 SYNOPSIS
       use File::HomeDir;
@@ -30,13 +30,14 @@ SYNOPSIS
       # "My dir is /home/user/mojo and root's is /"
 
 DESCRIPTION
-    File::HomeDir is a module for dealing with issues relating to the
-    location of directories that are "owned" by a user, primarily your user,
-    and to solve these issues consistently across a wide variety of
+    File::HomeDir is a module for locating the directories that are "owned"
+    by a user (typicaly your user) and to solve the various issues that
+    arise trying to find them consistently across a wide variety of
     platforms.
 
-    Thus, a single API is presented that can find your resources on any
-    platform.
+    The end result is a single API that can find your resources on any
+    platform, making it relatively trivial to create Perl software that
+    works elegantly and correctly no matter where you run it.
 
     This module provides two main interfaces.
 
@@ -52,10 +53,10 @@ DESCRIPTION
     back-compatibility reasons they will remain supported until at least
     2010.
 
-    After this date, the home() function will remain, but we will consider
-    deprecating the (namespace-polluting) "%~" tied hash, to be removed by
-    2015 (maintaining the general Perl convention of a 10 year support
-    period for legacy APIs potentially or actually in common use).
+    The "%~" interface has been deprecated and is no longer documented. Any
+    usage will issue warnings from 2013 and be removed in 2015 (in line with
+    the general Perl convention of a 10 year support period for legacy APIs
+    potentially or actually in common use).
 
   Platform Neutrality
     In the Unix world, many different types of data can be mixed together in
@@ -202,10 +203,10 @@ METHODS
 
     This directory will be of course a subdirectory of "my_data". Platforms
     supporting data-specific directories will use
-    "DATA_DIR/perl/dist/Dist-Name", following the traditional DATA / vendor
-    / application split. If the "my_data" directory is the user's homedir,
-    "my_dist_data" will be in "~/.perl/dist/Dist-Name/var" (and thus be
-    hidden on all Unixes).
+    "DATA_DIR/perl/dist/Dist-Name" following the common
+    "DATA/vendor/application" pattern. If the "my_data" directory is the
+    user's homedir, "my_dist_data" will be in "~/.perl/dist/Dist-Name/var"
+    (and thus be hidden on all Unixes).
 
     The optional last argument is a hash reference to tweak the method
     behaviour. The following hash keys are recognized:
@@ -259,40 +260,6 @@ FUNCTIONS
 
     If provided no param, returns the directory path to the current user's
     home/profile directory.
-
-TIED INTERFACE
-  %~
-      $home = $~{""};
-      $home = $~{undef};
-      $home = $~{$user};
-      $home = $~{username};
-      print "... $~{''} ...";
-      print "... $~{$user} ...";
-      print "... $~{username} ...";
-
-    This calls "home($user)" or "home('username')" -- except that if you ask
-    for $~{some_user} and there is no such user, it will die.
-
-    Note that this is especially useful in double-quotish strings, like:
-
-         print "Jojo's .newsrc is ", -s "$~{jojo}/.newsrc", "b long!\n";
-          # (helpfully dies if there is no user 'jojo')
-
-    If you want to avoid the fatal errors, first test the value of
-    "home('jojo')", which will return undef (instead of dying) in case of
-    there being no such user.
-
-    Note, however, that if the hash key is "" or undef (whether thru being a
-    literal "", or a scalar whose value is empty-string or undef), then this
-    returns zero-argument "home()", i.e., your home directory:
-
-    Further, please note that because the "%~" hash compulsorily modifies a
-    hash outside of it's namespace, and presents an overly simplistic
-    approach to home directories, it is likely to ultimately be removed.
-
-    The interface is currently expected to be formally deprecated from 2010
-    (but no earlier) and removed from 2015 (but no earlier). If very heavy
-    use is found in the wild, these plans may be pushed back.
 
 TO DO
     *   Become generally clearer on situations in which a user might not
