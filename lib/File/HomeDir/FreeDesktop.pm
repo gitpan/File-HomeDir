@@ -14,7 +14,7 @@ use File::HomeDir::Unix ();
 
 use vars qw{$VERSION @ISA};
 BEGIN {
-	$VERSION = '0.92_02';
+	$VERSION = '0.92_03';
 	@ISA     = 'File::HomeDir::Unix';
 }
 
@@ -47,6 +47,15 @@ sub my_data {
 	File::Spec->catdir(
 		shift->my_home,
 		qw{ .local share }
+	);
+}
+
+sub my_config {
+	$ENV{XDG_CONFIG_HOME}
+	or
+	File::Spec->catdir(
+		shift->my_home,
+		qw{ .config }
 	);
 }
 

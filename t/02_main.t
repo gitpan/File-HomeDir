@@ -77,8 +77,7 @@ if ( $^O eq 'MSWin32' ) {
 
 } elsif (
 	$^O eq 'darwin'
-	or
-	$File::HomeDir::IMPLEMENTED_BY eq 'File::HomeDir::FreeDesktop'
+	# $File::HomeDir::IMPLEMENTED_BY eq 'File::HomeDir::FreeDesktop'
 ) {
 	# "Unixes with proper desktops" special cases
 	if ( $< ) {

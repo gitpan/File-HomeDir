@@ -13,6 +13,7 @@ SYNOPSIS
       $videos   = File::HomeDir->my_videos;
       $data     = File::HomeDir->my_data;
       $dist     = File::HomeDir->my_dist_data('File-HomeDir');
+      $dist     = File::HomeDir->my_dist_config('File-HomeDir');
       
   # Modern Interface (Other Users)
       $home    = File::HomeDir->users_home('foo');
@@ -181,13 +182,43 @@ METHODS
     Generally an application would create a subdirectory such as ".foo",
     beneath this directory, and store its data there. By creating your
     directory this way, you get an accurate result on the maximum number of
-    platforms. But see the documentation about "my_dist_data()" below.
+    platforms. But see the documentation about "my_dist_config()" or
+    "my_dist_data()" below.
 
     For example, on Unix you get "~/.foo" and on Win32 you get "~/Local
     Settings/Application Data/.foo"
 
     Returns the directory path as a string, "undef" if the current user does
     not have a data directory, or dies on error.
+
+  my_dist_config
+      File::HomeDir->my_dist_config( $dist [, \%params] );
+      
+  # For example...
+      
+  File::HomeDir->my_dist_config( 'File-HomeDir' );
+      File::HomeDir->my_dist_config( 'File-HomeDir', { create => 1 } );
+
+    The "my_dist_config" method takes a distribution name as argument and
+    returns an application-specific directory where they should store their
+    internal configuration.
+
+    The base directory will be either "my_config" if the platform supports
+    it, or "my_documents" otherwise. The subdirectory itself will be
+    "BASE/Perl/Dist-Name". If the base directory is the user's homedir,
+    "my_dist_config" will be in "~/.perl/Dist-Name" (and thus be hidden on
+    all Unixes).
+
+    The optional last argument is a hash reference to tweak the method
+    behaviour. The following hash keys are recognized:
+
+    *   create
+
+        Passing a true value to this key will force the creation of the
+        directory if it doesn't exist (remember that "File::HomeDir"'s
+        policy is to return "undef" if the directory doesn't exist).
+
+        Defaults to false, meaning no automatic creation of directory.
 
   my_dist_data
       File::HomeDir->my_dist_data( $dist [, \%params] );
@@ -205,8 +236,8 @@ METHODS
     supporting data-specific directories will use
     "DATA_DIR/perl/dist/Dist-Name" following the common
     "DATA/vendor/application" pattern. If the "my_data" directory is the
-    user's homedir, "my_dist_data" will be in "~/.perl/dist/Dist-Name/var"
-    (and thus be hidden on all Unixes).
+    user's homedir, "my_dist_data" will be in "~/.perl/dist/Dist-Name" (and
+    thus be hidden on all Unixes).
 
     The optional last argument is a hash reference to tweak the method
     behaviour. The following hash keys are recognized:
@@ -324,6 +355,8 @@ COPYRIGHT
     Some parts copyright 2006 Chris Nandor.
 
     Some parts copyright 2006 Stephen Steneker.
+
+    Some parts copyright 2009-2010 Jérôme Quelin.
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.
