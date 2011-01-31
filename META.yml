@@ -32,4 +32,4 @@ resources:
   ChangeLog: http://fisheye2.atlassian.com/changelog/cpan/trunk/File-HomeDir
   license: http://dev.perl.org/licenses/
   repository: http://svn.ali.as/cpan/trunk/File-HomeDir
-version: 0.96_02
+version: 0.96_03

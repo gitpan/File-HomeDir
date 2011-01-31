@@ -65,7 +65,7 @@ DESCRIPTION
     your home directory (although on some Unix platforms this is no longer
     the case, particularly for "desktop"-oriented platforms).
 
-    On some non-Unix platforms, seperate directories are allocated for
+    On some non-Unix platforms, separate directories are allocated for
     different types of data and have been for a long time.
 
     When writing applications on top of File::HomeDir, you should thus
@@ -83,7 +83,7 @@ METHODS
     finding resources for the current user, and the "users_method" (read as
     "user's method") series for finding resources for arbitrary users.
 
-    This split is necesary, as on most platforms it is much easier to find
+    This split is necessary, as on most platforms it is much easier to find
     information about the current user compared to other users, and indeed
     on a number you cannot find out information such as "users_desktop" at
     all, due to security restrictions.
@@ -121,8 +121,8 @@ METHODS
     directory for the current user.
 
     Due to the diversity and complexity of implementions required to deal
-    with implementing the required functionality fully and completely, for
-    the moment "my_desktop" is not going to be implemented.
+    with implementing the required functionality fully and completely, the
+    "my_desktop" method may or may not be implemented on each platform.
 
     That said, I am extremely interested in code to implement "my_desktop"
     on Unix, as long as it is capable of dealing (as the Windows

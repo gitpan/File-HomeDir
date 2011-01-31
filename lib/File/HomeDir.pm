@@ -12,7 +12,7 @@ use File::Which ();
 # Globals
 use vars qw{$VERSION @ISA @EXPORT @EXPORT_OK $IMPLEMENTED_BY};
 BEGIN {
-	$VERSION = '0.96_02';
+	$VERSION = '0.96_03';
 
 	# Inherit manually
 	require Exporter;
@@ -394,7 +394,7 @@ In the Unix world, many different types of data can be mixed together
 in your home directory (although on some Unix platforms this is no longer
 the case, particularly for "desktop"-oriented platforms).
 
-On some non-Unix platforms, seperate directories are allocated for
+On some non-Unix platforms, separate directories are allocated for
 different types of data and have been for a long time.
 
 When writing applications on top of B<File::HomeDir>, you should thus
@@ -413,7 +413,7 @@ Two types of methods are provided. The C<my_method> series of methods for
 finding resources for the current user, and the C<users_method> (read as
 "user's method") series for finding resources for arbitrary users.
 
-This split is necesary, as on most platforms it is B<much> easier to find
+This split is necessary, as on most platforms it is B<much> easier to find
 information about the current user compared to other users, and indeed
 on a number you cannot find out information such as C<users_desktop> at
 all, due to security restrictions.
@@ -452,8 +452,8 @@ The C<my_desktop> method takes no arguments and returns the "desktop"
 directory for the current user.
 
 Due to the diversity and complexity of implementions required to deal with
-implementing the required functionality fully and completely, for the moment
-C<my_desktop> is B<not> going to be implemented.
+implementing the required functionality fully and completely, the
+C<my_desktop> method may or may not be implemented on each platform.
 
 That said, I am extremely interested in code to implement C<my_desktop> on
 Unix, as long as it is capable of dealing (as the Windows implementation
