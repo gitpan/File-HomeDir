@@ -54,10 +54,11 @@ DESCRIPTION
     back-compatibility reasons they will remain supported until at least
     2010.
 
-    The "%~" interface has been deprecated and is no longer documented. Any
-    usage will issue warnings from 2013 and be removed in 2015 (in line with
-    the general Perl convention of a 10 year support period for legacy APIs
-    potentially or actually in common use).
+    The "%~" interface has been deprecated. Documentation was removed in
+    2009, Unit test were removed in 2011, usage will issue warnings from
+    2013, and the interface will be removed entirely in 2015 (in line with
+    the general Perl toolchain convention of a 10 year support period for
+    legacy APIs that are potentially or actually in common use).
 
   Platform Neutrality
     In the Unix world, many different types of data can be mixed together in
