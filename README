@@ -23,12 +23,6 @@ SYNOPSIS
       $pics    = File::HomeDir->users_pictures('foo');
       $video   = File::HomeDir->users_videos('foo');
       $data    = File::HomeDir->users_data('foo');
-      
-  # Legacy Interfaces
-      print "My dir is ", home(), " and root's is ", home('root'), "\n";
-      print "My dir is $~{''} and root's is $~{root}\n";
-      # These both print the same thing, something like:
-      # "My dir is /home/user/mojo and root's is /"
 
 DESCRIPTION
     File::HomeDir is a module for locating the directories that are "owned"
@@ -349,7 +343,7 @@ SEE ALSO
     File::ShareDir, File::HomeDir::Win32 (legacy)
 
 COPYRIGHT
-    Copyright 2005 - 2011 Adam Kennedy.
+    Copyright 2005 - 2012 Adam Kennedy.
 
     Some parts copyright 2000 Sean M. Burke.
 
