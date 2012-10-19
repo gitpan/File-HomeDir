@@ -4,7 +4,7 @@
       "Adam Kennedy <adamk@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Module::Install version 1.04, CPAN::Meta::Converter version 2.112621",
+   "generated_by" : "Module::Install version 1.06, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "perl_5"
    ],
@@ -34,7 +34,7 @@
       },
       "runtime" : {
          "requires" : {
-            "Carp" : 0,
+            "Carp" : "0",
             "Cwd" : "3.12",
             "File::Path" : "2.01",
             "File::Spec" : "3.12",
@@ -54,6 +54,6 @@
       },
       "x_ChangeLog" : "http://fisheye2.atlassian.com/changelog/cpan/trunk/File-HomeDir"
    },
-   "version" : "0.99",
+   "version" : "1.00",
    "x_module_name" : "File::HomeDir"
 }
